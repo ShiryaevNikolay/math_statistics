@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:math_statistics/pages/home_page.dart';
+import 'package:math_statistics/navigation/route_manager.dart';
 
 void main() => runApp(MaterialApp(
-    title: 'Математическая статистика',
+    initialRoute: '/',
+    onGenerateRoute: RouteManager.generateRoute,
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: HomePage(),
   )
 );
