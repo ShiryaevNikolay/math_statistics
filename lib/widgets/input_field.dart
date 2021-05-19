@@ -3,13 +3,17 @@ import 'package:flutter/widgets.dart';
 
 class InputField extends StatelessWidget {
 
-  InputField({this.hintText});
+  InputField({
+    this.hintText,
+    this.textInputType
+  });
 
   String? hintText;
+  TextInputType? textInputType;
 
   @override
   Widget build(BuildContext context) => TextField(
-    keyboardType: TextInputType.number,
+    keyboardType: textInputType,
     maxLines: null,
     decoration: InputDecoration(
       filled: true,

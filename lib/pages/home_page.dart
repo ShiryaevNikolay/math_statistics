@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:math_statistics/widgets/input_field.dart';
+import 'package:math_statistics/screens/descriptive_statistics_screen.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -12,6 +13,7 @@ class HomePage extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
           systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
           systemNavigationBarIconBrightness: Brightness.dark
       ),
@@ -21,20 +23,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: statusBarHeight,),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: InputField(
-                        hintText: "Выборка"
-                    ),
-                  ),
-                ),
-                MaterialButton(
-                  child: Text("Вычислить"),
-                  minWidth: double.infinity,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  color: Theme.of(context).accentColor,
-                  onPressed: () {}
-                )
+                Expanded(child: DescriptiveStatisticsScreen()),
               ],
             ),
           )
