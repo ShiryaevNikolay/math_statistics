@@ -4,6 +4,9 @@ import 'package:math_statistics/components/counter.dart';
 import 'package:math_statistics/widgets/input_field.dart';
 
 class DescriptiveStatisticsScreen extends StatelessWidget {
+
+  final Counter counter = Counter(title: "Шаг интервала",)..minCounterValue = 1;
+
   @override
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -14,7 +17,7 @@ class DescriptiveStatisticsScreen extends StatelessWidget {
         value: false,
         onChanged: (value) {}
       ),
-      Counter(title: "Шаг интервала",),
+      counter,
       Expanded(
         child: SingleChildScrollView(
           child: InputField(
