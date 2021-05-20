@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:math_statistics/components/counter.dart';
 import 'package:math_statistics/widgets/input_field.dart';
 
 class DescriptiveStatisticsScreen extends StatelessWidget {
@@ -13,6 +14,7 @@ class DescriptiveStatisticsScreen extends StatelessWidget {
         value: false,
         onChanged: (value) {}
       ),
+      Counter(title: "Шаг интервала",),
       Expanded(
         child: SingleChildScrollView(
           child: InputField(
