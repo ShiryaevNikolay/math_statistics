@@ -49,7 +49,7 @@ class _CounterState extends State<Counter> {
 
     _controller = TextEditingController()
       ..addListener(() {
-        widget.counter = _controller?.text as num;
+        widget.counter = int.parse(_controller?.text ?? "0");
       });
   }
 
