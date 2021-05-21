@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:math_statistics/pages/home_page.dart';
+import 'package:math_statistics/screens/home_screen.dart';
+import 'package:math_statistics/screens/result_screen.dart';
 
 class RouteManager {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,7 +13,12 @@ class RouteManager {
       // Главный экран
       case '/':
         return getRouteFor(
-          HomePage()
+          HomeScreen()
+        );
+
+      case '/result':
+        return getRouteFor(
+            ResultScreen()
         );
 
       default:

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:math_statistics/screens/descriptive_statistics_screen.dart';
+import 'package:math_statistics/pages/descriptive_statistics_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: statusBarHeight,),
-                Expanded(child: DescriptiveStatisticsScreen()),
+                Expanded(child: DescriptiveStatisticsPage()),
               ],
             ),
           )

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:math_statistics/components/counter.dart';
 import 'package:math_statistics/components/parameter.dart';
 import 'package:math_statistics/widgets/check_box_widget/bloc_checkbox.dart';
-import 'package:math_statistics/widgets/check_box_widget/check_box.dart';
 import 'package:math_statistics/widgets/input_field.dart';
 
-class DescriptiveStatisticsScreen extends StatelessWidget {
+class DescriptiveStatisticsPage extends StatelessWidget {
 
   final Parameter customStep = Parameter();
 
@@ -33,7 +31,9 @@ class DescriptiveStatisticsScreen extends StatelessWidget {
             minWidth: double.infinity,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Theme.of(context).accentColor,
-            onPressed: () {}
+            onPressed: () {
+              Navigator.pushNamed(context, '/result');
+            }
         )
       ],
     ),
