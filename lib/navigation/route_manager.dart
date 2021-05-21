@@ -17,9 +17,14 @@ class RouteManager {
         );
 
       case '/result':
-        return getRouteFor(
-            ResultScreen()
-        );
+        if (args is Map) {
+          return getRouteFor(
+              ResultScreen(
+                variationsData: args['variationData'],
+              )
+          );
+        }
+        return _underConstructionRoute();
 
       default:
         return _underConstructionRoute();

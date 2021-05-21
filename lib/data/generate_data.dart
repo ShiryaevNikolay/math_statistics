@@ -23,7 +23,7 @@ class GenerateData {
     num a = startInterval ?? 0;
     num b = a + (stepInterval ?? 1);
 
-    List<RowVariation> listRowsVariations = List.empty();
+    List<RowVariation> listRowsVariations = [];
 
     num xAverage = 0.0;
     num accumFrequency = 0.0;

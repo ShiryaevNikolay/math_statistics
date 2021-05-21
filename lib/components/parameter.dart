@@ -8,6 +8,7 @@ import 'package:math_statistics/widgets/check_box_widget/checkbox_state.dart';
 class Parameter extends StatelessWidget {
 
   bool isCustomStep = false;
+  Counter counter = Counter(title: "Шаг интервала",)..minCounterValue = 1;
 
   @override
   Widget build(BuildContext context) => BlocBuilder<CheckboxBloc, CheckboxState>(
@@ -18,7 +19,7 @@ class Parameter extends StatelessWidget {
         return Column(
           children: [
             CheckboxText(title: "Установить свой шаг",),
-            if (state.isChecked) Counter(title: "Шаг интервала",)..minCounterValue = 1,
+            if (state.isChecked) counter,
           ],
         );
       }

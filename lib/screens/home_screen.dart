@@ -5,6 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:math_statistics/pages/descriptive_statistics_page.dart';
 
 class HomeScreen extends StatelessWidget {
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
 
@@ -18,12 +21,15 @@ class HomeScreen extends StatelessWidget {
           systemNavigationBarIconBrightness: Brightness.dark
       ),
       child: Scaffold(
+        key: _scaffoldKey,
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 SizedBox(height: statusBarHeight,),
-                Expanded(child: DescriptiveStatisticsPage()),
+                Expanded(child: DescriptiveStatisticsPage(
+                  scaffoldKey: _scaffoldKey,
+                )),
               ],
             ),
           )
