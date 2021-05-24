@@ -11,17 +11,21 @@ class Parameter extends StatelessWidget {
   Counter counter = Counter(title: "Шаг интервала",)..minCounterValue = 1;
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<CheckboxBloc, CheckboxState>(
-      builder: (context, state) {
+  Widget build(BuildContext context) => Column(
+    children: [
+      CheckboxText(title: "Установить свой шаг",),
+      BlocBuilder<CheckboxBloc, CheckboxState>(
+        builder: (context, state) {
+          isCustomStep = (state as CheckboxValueState).isChecked;
 
-        isCustomStep = (state as CheckboxValueState).isChecked;
+          return getFieldWidget(state.isChecked);
+        },
+      )
+    ],
+  );
 
-        return Column(
-          children: [
-            CheckboxText(title: "Установить свой шаг",),
-            if (state.isChecked) counter,
-          ],
-        );
-      }
+  Widget getFieldWidget(bool isVisible) => Visibility(
+    visible: isVisible,
+    child: counter
   );
 }

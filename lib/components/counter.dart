@@ -54,6 +54,12 @@ class _CounterState extends State<Counter> {
   }
 
   @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Padding(

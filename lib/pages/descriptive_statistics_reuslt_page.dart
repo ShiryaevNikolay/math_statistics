@@ -10,11 +10,24 @@ class DescriptiveStatisticsResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: variationsData!.rowsVariations!.length + 1,
-      itemBuilder: (context, index) => index == 0
-          ? ItemRowVariationsData()
-          : ItemRowVariationsData(rowVariation: variationsData!.rowsVariations![index-1],)
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text("Среднее выборочное: ${variationsData!.xAverage!.toStringAsFixed(3)}"),
+        Text("Выборочная дисперсия: ${variationsData!.dispersion!.toStringAsFixed(3)}"),
+        Text("Мода: ${variationsData!.fashion}"),
+        Text("Медиана: ${variationsData!.median}"),
+        Text("Размах: ${variationsData!.size!.toStringAsFixed(3)}"),
+        Text("Коэф. вариации: ${variationsData!.coefficientVariation!.toStringAsFixed(3)}"),
+        Expanded(
+          child: ListView.builder(
+              itemCount: variationsData!.rowsVariations!.length + 1,
+              itemBuilder: (context, index) => index == 0
+                  ? ItemRowVariationsData()
+                  : ItemRowVariationsData(rowVariation: variationsData!.rowsVariations![index-1],)
+          ),
+        )
+      ],
     );
   }
 }

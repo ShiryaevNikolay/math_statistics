@@ -11,16 +11,17 @@ import 'package:math_statistics/widgets/input_field.dart';
 
 class DescriptiveStatisticsPage extends StatefulWidget {
 
+  var state = _DescriptiveStatisticsPageState();
+  final Parameter customStep = Parameter();
   late final GlobalKey<ScaffoldState>? scaffoldKey;
 
   DescriptiveStatisticsPage({this.scaffoldKey});
 
   @override
-  _DescriptiveStatisticsPageState createState() => _DescriptiveStatisticsPageState();
+  _DescriptiveStatisticsPageState createState() => this.state = _DescriptiveStatisticsPageState();
 }
 
 class _DescriptiveStatisticsPageState extends State<DescriptiveStatisticsPage> {
-  final Parameter customStep = Parameter();
   TextEditingController? _controller;
 
   @override
@@ -44,7 +45,7 @@ class _DescriptiveStatisticsPageState extends State<DescriptiveStatisticsPage> {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        customStep,
+        widget.customStep,
         Expanded(
           child: SingleChildScrollView(
             child: InputField(
@@ -66,10 +67,10 @@ class _DescriptiveStatisticsPageState extends State<DescriptiveStatisticsPage> {
 
               if (samples.isNotEmpty) {
                 num startInterval = samples.reduce(min);
-                num stepIntervalInput = customStep.counter.counter;
+                num stepIntervalInput = widget.customStep.counter.counter;
                 GenerateData data = GenerateData(
                   samples: samples,
-                  customStep: customStep.isCustomStep,
+                  customStep: widget.customStep.isCustomStep,
                   startInterval: startInterval,
                   stepIntervalInput: stepIntervalInput
                 );
