@@ -7,35 +7,17 @@ import 'package:math_statistics/components/parameter.dart';
 import 'package:math_statistics/data/generate_data.dart';
 import 'package:math_statistics/data/models/variations_data.dart';
 import 'package:math_statistics/widgets/check_box_widget/bloc_checkbox.dart';
-import 'package:math_statistics/widgets/input_field.dart';
+import 'package:math_statistics/widgets/input_field/input_field.dart';
+import 'package:math_statistics/widgets/input_field/input_field_listener.dart';
 
-class DescriptiveStatisticsPage extends StatefulWidget {
+class DescriptiveStatisticsPage extends StatelessWidget implements InputFieldListener {
 
-  var state = _DescriptiveStatisticsPageState();
-  final Parameter customStep = Parameter();
+  String sample = "";
+
+  Parameter customStep = Parameter();
   late final GlobalKey<ScaffoldState>? scaffoldKey;
 
   DescriptiveStatisticsPage({this.scaffoldKey});
-
-  @override
-  _DescriptiveStatisticsPageState createState() => this.state = _DescriptiveStatisticsPageState();
-}
-
-class _DescriptiveStatisticsPageState extends State<DescriptiveStatisticsPage> {
-  TextEditingController? _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
@@ -45,13 +27,13 @@ class _DescriptiveStatisticsPageState extends State<DescriptiveStatisticsPage> {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        widget.customStep,
+        customStep,
         Expanded(
           child: SingleChildScrollView(
             child: InputField(
-              hintText: "Выборка",
-              textInputType: TextInputType.number,
-              controller: _controller,
+                hintText: "Выборка",
+                textInputType: TextInputType.number,
+                inputFieldListener: this,
             ),
           ),
         ),
@@ -61,16 +43,16 @@ class _DescriptiveStatisticsPageState extends State<DescriptiveStatisticsPage> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Theme.of(context).accentColor,
             onPressed: () {
-              List<num> samples = _controller?.text != null
-                  ? (_controller?.text.split(' ').map((e) => num.parse(e)).toList() ?? List.empty())
+              List<num> samples = sample.isNotEmpty
+                  ? (sample.split(' ').map((e) => num.parse(e)).toList())
                   : List.empty();
 
               if (samples.isNotEmpty) {
                 num startInterval = samples.reduce(min);
-                num stepIntervalInput = widget.customStep.counter.counter;
+                num stepIntervalInput = customStep.counter?.counter ?? 1;
                 GenerateData data = GenerateData(
                   samples: samples,
-                  customStep: widget.customStep.isCustomStep,
+                  customStep: customStep.isCustomStep,
                   startInterval: startInterval,
                   stepIntervalInput: stepIntervalInput
                 );
@@ -93,7 +75,12 @@ class _DescriptiveStatisticsPageState extends State<DescriptiveStatisticsPage> {
   }
 
   void showSnackbar() {
-    widget.scaffoldKey?.currentState!.hideCurrentSnackBar();
-    widget.scaffoldKey?.currentState!.showSnackBar(SnackBar(content: Text("Выборка не удовлетворяет условию")));
+    scaffoldKey?.currentState!.hideCurrentSnackBar();
+    scaffoldKey?.currentState!.showSnackBar(SnackBar(content: Text("Выборка не удовлетворяет условию")));
+  }
+
+  @override
+  void listener(String text) {
+    sample = text;
   }
 }

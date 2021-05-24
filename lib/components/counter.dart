@@ -1,62 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:math_statistics/widgets/input_field.dart';
+import 'package:math_statistics/widgets/input_field/input_field.dart';
+import 'package:math_statistics/widgets/input_field/input_field_listener.dart';
 
-class Counter extends StatefulWidget {
-
-  Counter({this.title});
-
-  final _counterState = _CounterState();
+class Counter extends StatelessWidget implements InputFieldListener {
 
   final String? title;
   num counter = 0;
 
   num? _minCounterValue;
   num? get minCounterValue => _minCounterValue;
-  set minCounterValue(num? value) {
+  void setMinCounterValue(num? value) {
     if (value != null) {
       if (counter < value) {
         counter = value;
       }
     }
     _minCounterValue = value;
-    _counterState.updateField();
+    updateField();
   }
 
   num? _maxCounterValue;
   num? get maxCounterValue => _maxCounterValue;
-  set maxCounterValue(num? value) {
+  void setMaxCounterValue(num? value) {
     if (value != null) {
       if (counter < value) {
         counter = value;
       }
     }
     _maxCounterValue = value;
-    _counterState.updateField();
+    updateField();
   }
 
-  @override
-  _CounterState createState() => _counterState;
-}
+  InputField? _inputField;
 
-class _CounterState extends State<Counter> {
-
-  TextEditingController? _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = TextEditingController()
-      ..addListener(() {
-        widget.counter = int.parse(_controller?.text ?? "0");
-      });
-  }
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
+  Counter({this.title}) {
+    _inputField = InputField(
+        maxLines: 1,
+        initText: counter.toString(),
+        inputFieldListener: this,
+    );
   }
 
   @override
@@ -66,31 +49,19 @@ class _CounterState extends State<Counter> {
       padding: EdgeInsets.all(8.0),
       child: Column(
         children: [
-          if (widget.title != null) Text(widget.title!),
-          if (widget.title != null) const SizedBox(height: 8.0,),
+          if (title != null) Text(title!),
+          if (title != null) const SizedBox(height: 8.0,),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               IconButton(
                   icon: Icon(Icons.arrow_left),
-                  onPressed: () {
-                    setState(() {
-                      _decreaseCounter();
-                    });
-                  }
+                  onPressed: () { _decreaseCounter(); }
               ),
-              IntrinsicWidth(child: InputField(
-                maxLines: 1,
-                initText: widget.counter.toString(),
-                controller: _controller,
-              )),
+              IntrinsicWidth(child: _inputField),
               IconButton(
                   icon: Icon(Icons.arrow_right),
-                  onPressed: () {
-                    setState(() {
-                      _increaseCounter();
-                    });
-                  }
+                  onPressed: () { _increaseCounter(); }
               )
             ],
           ),
@@ -100,30 +71,35 @@ class _CounterState extends State<Counter> {
   }
 
   void _decreaseCounter() {
-    final minCounter = widget._minCounterValue;
+    final minCounter = _minCounterValue;
     if (minCounter == null) {
-      widget.counter--;
+      counter--;
     } else {
-      if (widget.counter > minCounter) {
-        widget.counter--;
+      if (counter > minCounter) {
+        counter--;
       }
     }
     updateField();
   }
 
   void _increaseCounter() {
-    final maxCounter = widget._maxCounterValue;
+    final maxCounter = _maxCounterValue;
     if (maxCounter == null) {
-      widget.counter++;
+      counter++;
     } else {
-      if (widget.counter > maxCounter) {
-        widget.counter++;
+      if (counter > maxCounter) {
+        counter++;
       }
     }
     updateField();
   }
 
   void updateField() {
-    _controller?.text = widget.counter.toString();
+    _inputField?.updateField(counter.toString());
+  }
+
+  @override
+  void listener(String text) {
+    counter = int.parse(text);
   }
 }
