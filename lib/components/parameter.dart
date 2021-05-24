@@ -26,6 +26,6 @@ class Parameter extends StatelessWidget {
 
   Widget getFieldWidget(bool isVisible) => Visibility(
     visible: isVisible,
-    child: this.counter =  Counter(title: "Шаг интервала",)..setMinCounterValue(1)
+    child: this.counter = Counter(title: "Шаг интервала",)..setMinCounterValue(1)
   );
 }

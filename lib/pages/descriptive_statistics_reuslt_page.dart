@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:math_statistics/components/item_row_variations_data.dart';
+import 'package:math_statistics/data/models/row_variation.dart';
 import 'package:math_statistics/data/models/variations_data.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DescriptiveStatisticsResultPage extends StatelessWidget {
 
@@ -21,12 +23,37 @@ class DescriptiveStatisticsResultPage extends StatelessWidget {
         Text("Коэф. вариации: ${variationsData!.coefficientVariation!.toStringAsFixed(3)}"),
         Expanded(
           child: ListView.builder(
-              itemCount: variationsData!.rowsVariations!.length + 1,
-              itemBuilder: (context, index) => index == 0
-                  ? ItemRowVariationsData()
-                  : ItemRowVariationsData(rowVariation: variationsData!.rowsVariations![index-1],)
+              itemCount: variationsData!.rowsVariations!.length + 2,
+              itemBuilder: (context, index) {
+                if(index == 0) return ItemRowVariationsData();
+                if(index > 0 && index <= variationsData!.rowsVariations!.length)
+                  return ItemRowVariationsData(rowVariation: variationsData!.rowsVariations![index-1],);
+
+                return SfCartesianChart(
+                  primaryXAxis: CategoryAxis(),
+                  // title: ChartTitle(text: "Полигон"),
+                  legend: Legend(
+                    isVisible: true,
+                    position: LegendPosition.bottom,
+                  ),
+                  series: <ChartSeries<RowVariation, num>>[
+                    ColumnSeries<RowVariation, num>(
+                      dataSource: variationsData!.rowsVariations!,
+                      xValueMapper: (RowVariation rowVariation, _) => rowVariation.interval!.min,
+                      yValueMapper: (RowVariation rowVariation, _) => rowVariation.relativeFrequency,
+                    ),
+                    LineSeries<RowVariation, num>(
+                        dataSource: variationsData!.rowsVariations!,
+                        xValueMapper: (RowVariation rowVariation, _) => rowVariation.interval!.min,
+                        yValueMapper: (RowVariation rowVariation, _) => rowVariation.relativeFrequency,
+
+                        dataLabelSettings: DataLabelSettings(isVisible: true)
+                    ),
+                  ],
+                );
+              }
           ),
-        )
+        ),
       ],
     );
   }
