@@ -23,34 +23,51 @@ class DescriptiveStatisticsResultPage extends StatelessWidget {
         Text("Коэф. вариации: ${variationsData!.coefficientVariation!.toStringAsFixed(3)}"),
         Expanded(
           child: ListView.builder(
-              itemCount: variationsData!.rowsVariations!.length + 2,
+              itemCount: variationsData!.rowsVariations!.length + 3,
               itemBuilder: (context, index) {
                 if(index == 0) return ItemRowVariationsData();
                 if(index > 0 && index <= variationsData!.rowsVariations!.length)
                   return ItemRowVariationsData(rowVariation: variationsData!.rowsVariations![index-1],);
 
+                if(index == variationsData!.rowsVariations!.length + 1)
+                  return SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    // title: ChartTitle(text: "Полигон"),
+                    legend: Legend(
+                      isVisible: true,
+                      position: LegendPosition.bottom,
+                    ),
+                    series: <ChartSeries<RowVariation, num>>[
+                      ColumnSeries<RowVariation, num>(
+                        dataSource: variationsData!.rowsVariations!,
+                        xValueMapper: (RowVariation rowVariation, _) => rowVariation.interval!.min,
+                        yValueMapper: (RowVariation rowVariation, _) => rowVariation.relativeFrequency,
+                      ),
+                      LineSeries<RowVariation, num>(
+                          dataSource: variationsData!.rowsVariations!,
+                          xValueMapper: (RowVariation rowVariation, _) => rowVariation.interval!.min,
+                          yValueMapper: (RowVariation rowVariation, _) => rowVariation.relativeFrequency,
+
+                          dataLabelSettings: DataLabelSettings(isVisible: true)
+                      ),
+                    ],
+                  );
+
                 return SfCartesianChart(
                   primaryXAxis: CategoryAxis(),
-                  // title: ChartTitle(text: "Полигон"),
+                  title: ChartTitle(text: "Импирическая функция распределения F(x)"),
                   legend: Legend(
                     isVisible: true,
                     position: LegendPosition.bottom,
                   ),
-                  series: <ChartSeries<RowVariation, num>>[
-                    ColumnSeries<RowVariation, num>(
+                series: <ChartSeries<RowVariation, num>>[
+                  StepLineSeries(
                       dataSource: variationsData!.rowsVariations!,
                       xValueMapper: (RowVariation rowVariation, _) => rowVariation.interval!.min,
-                      yValueMapper: (RowVariation rowVariation, _) => rowVariation.relativeFrequency,
-                    ),
-                    LineSeries<RowVariation, num>(
-                        dataSource: variationsData!.rowsVariations!,
-                        xValueMapper: (RowVariation rowVariation, _) => rowVariation.interval!.min,
-                        yValueMapper: (RowVariation rowVariation, _) => rowVariation.relativeFrequency,
-
-                        dataLabelSettings: DataLabelSettings(isVisible: true)
-                    ),
-                  ],
-                );
+                      yValueMapper: (RowVariation rowVariation, _) => rowVariation.accumulatedFrequency
+                  )
+                ],
+              );
               }
           ),
         ),
