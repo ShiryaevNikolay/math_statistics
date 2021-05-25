@@ -20,19 +20,40 @@ class HomeScreen extends StatelessWidget {
           systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
           systemNavigationBarIconBrightness: Brightness.dark
       ),
-      child: Scaffold(
-        key: _scaffoldKey,
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SizedBox(height: statusBarHeight,),
-                Expanded(child: DescriptiveStatisticsPage(
-                  scaffoldKey: _scaffoldKey,
-                )),
-              ],
-            ),
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          key: _scaffoldKey,
+          body: Column(
+            children: [
+              SizedBox(height: statusBarHeight,),
+              TabBar(
+                labelColor: Theme.of(context).accentColor,
+                tabs: [
+                  Tab(text: "Описательная статистика",),
+                  Tab(text: "Точечная оценка параметров",)
+                ]
+              ),
+              Expanded(
+                child: TabBarView(
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DescriptiveStatisticsPage(
+                        scaffoldKey: _scaffoldKey,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(child: Text("2"),),
+                    )
+                  ],
+                ),
+              )
+            ],
           )
+        ),
       ),
     );
   }
