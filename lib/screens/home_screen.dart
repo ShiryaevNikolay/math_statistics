@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:math_statistics/pages/descriptive_statistics_page.dart';
+import 'package:math_statistics/pages/point_estimate_page.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Center(child: Text("2"),),
+                      child: PointEstimatePage(),
                     )
                   ],
                 ),

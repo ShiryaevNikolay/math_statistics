@@ -24,7 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc:
-  syncfusion_flutter_charts: 
+  syncfusion_flutter_charts:
+  flutter_tex:
 
 
   # The following adds the Cupertino Icons font to your application.

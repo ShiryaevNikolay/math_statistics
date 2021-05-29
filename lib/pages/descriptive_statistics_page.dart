@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:math_statistics/components/parameter.dart';
 import 'package:math_statistics/data/generate_data.dart';
 import 'package:math_statistics/data/models/variations_data.dart';
 import 'package:math_statistics/widgets/check_box_widget/bloc_checkbox.dart';
+import 'package:math_statistics/widgets/formulas/formulas.dart';
 import 'package:math_statistics/widgets/input_field/input_field.dart';
 import 'package:math_statistics/widgets/input_field/input_field_listener.dart';
 

@@ -11,13 +11,17 @@ class InputField extends StatefulWidget {
   InputFieldListener? inputFieldListener;
   _InputFieldState? _inputFieldState;
 
+  String text = "";
+
   InputField({
     this.hintText,
     this.textInputType,
     this.initText,
     this.maxLines,
     this.inputFieldListener
-  });
+  }) {
+    text = initText ?? "";
+  }
 
   @override
   _InputFieldState createState() => this._inputFieldState = _InputFieldState();
@@ -65,6 +69,7 @@ class _InputFieldState extends State<InputField> {
   );
 
   void updateField(String text) {
+    widget.text = text;
     setState(() {
       _controller?.text = text;
     });

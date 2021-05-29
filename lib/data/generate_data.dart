@@ -18,7 +18,7 @@ class GenerateData {
     this.stepIntervalInput
   }) {
     int countIntervals = (1 + 3.322*log(samples!.length)).toInt();
-    num? stepInterval = customStep ? stepIntervalInput : (samples!.reduce(max) - samples!.reduce(min)) / countIntervals;
+    num? stepInterval = customStep ? stepIntervalInput : ((samples!.reduce(max) - samples!.reduce(min)) / countIntervals).ceil();
 
     num a = startInterval ?? 0;
     num b = a + (stepInterval ?? 1);
@@ -80,6 +80,8 @@ class GenerateData {
       fashion = _calculateFashion(maxFrequency);
       median = _calculateMedian(listRowsVariations, listRowsVariations.length);
     }
+
+    dispersion = dispersion * samples!.length / (samples!.length - 1);
 
     num coefficientVariation = sqrt(dispersion) / xAverage * 100;
     num size = samples!.reduce(max) - samples!.reduce(min) + 1;
