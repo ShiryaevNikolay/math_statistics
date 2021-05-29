@@ -45,6 +45,8 @@ class DescriptiveStatisticsPage extends StatelessWidget implements InputFieldLis
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Theme.of(context).accentColor,
             onPressed: () {
+              print(sample);
+
               List<num> samples = sample.isNotEmpty
                   ? (sample.split(' ').map((e) => num.parse(e)).toList())
                   : List.empty();

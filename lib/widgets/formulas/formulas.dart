@@ -5,35 +5,35 @@ import 'package:math_statistics/widgets/formulas/TeXWidget.dart';
 class Formulas {
   static Widget xAverage(BuildContext context, {int n = 1}) => TeXWidget(
       context,
-      r"""\)
+      r"""\(
       \bar{x} = {1 \over n} \sum_{i=1}^n x_i n_i =
       \)"""
   );
 
   static Widget dispersion(BuildContext context) => TeXWidget(
       context,
-      r"""\)
+      r"""\(
       S^2_{исп} = {1 \over {n-1}} \sum_{i=1}^n {(x_i - \bar{x})}^2 n_i =
       \)"""
   );
 
   static Widget fashionInterval(BuildContext context) => TeXWidget(
       context,
-      r"""\)
-      x_0 + k \frac{n_i - n_{i-1}}{(n_i - n_{i-1})(n_i - n_{i+1})} =
+      r"""\(
+      M_0 + k \frac{n_i - n_{i-1}}{(n_i - n_{i-1})(n_i - n_{i+1})} =
       \)"""
   );
 
   static Widget medianInterval(BuildContext context) => TeXWidget(
       context,
-      r"""\)
-      x_0 + k \frac{\frac{n}{2} - T_{i-1}}{n_i} =
+      r"""\(
+      M_e + k \frac{\frac{n}{2} - T_{i-1}}{n_i} =
       \)"""
   );
 
   static Widget size(BuildContext context) => TeXWidget(
       context,
-      r"""\)
+      r"""\(
       Размах = x_{max} - x_{min} + 1 =
       \)"""
   );
